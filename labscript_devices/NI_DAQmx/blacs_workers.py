@@ -470,12 +470,17 @@ class NI_DAQmxAcquisitionWorker(Worker):
 
         self.read_array = np.zeros((num_samples, len(chans)), dtype=np.float64)
         self.task = Task()
-
+        
         for chan in chans:
+            if int(chan[2:])>=8:
+                aiType=DAQmx_Val_RSE
+            else:
+                aiType=DAQmx_Val_Diff
+
             self.task.CreateAIVoltageChan(
                 self.MAX_name + '/' + chan,
                 "",
-                DAQmx_Val_RSE,
+                aiType,
                 self.AI_range[0],
                 self.AI_range[1],
                 DAQmx_Val_Volts,
