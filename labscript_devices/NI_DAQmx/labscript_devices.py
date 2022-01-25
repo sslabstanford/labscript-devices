@@ -305,7 +305,7 @@ class NI_DAQmx(IntermediateDevice):
         msg = """Requested acqusition_rate %f for device %s with %d analog input
             channels in use is too fast. Device supports a rate of %f per channel when
             multiple channels are in use."""
-        msg = msg % (self.acquisition_rate, self.name, n, self.max_AI_multi_chan_rate)
+        msg = msg % (self.acquisition_rate, self.name, n, self.max_AI_multi_chan_rate / n)
         raise ValueError(dedent(msg))
 
     def _make_analog_out_table(self, analogs, times):
